@@ -59,7 +59,7 @@
         <include android:id="@+id/cell4" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell5" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell6" layout="@layout/workspace_screen" />
-        <include android:id="@+id/cell57" layout="@layout/workspace_screen" />
+        <include android:id="@+id/cell7" layout="@layout/workspace_screen" />
     </com.android.launcher2.Workspace>
 
     <include layout="@layout/hotseat"
