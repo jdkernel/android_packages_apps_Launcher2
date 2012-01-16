@@ -78,7 +78,6 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -90,7 +89,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Advanceable;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -1752,15 +1750,6 @@ public final class Launcher extends Activity
         }
     }
 
-    public void onClickOverflowMenuButton(View v) {
-        final PopupMenu popupMenu = new PopupMenu(this, v);
-        final Menu menu = popupMenu.getMenu();
-        onCreateOptionsMenu(menu);
-        onPrepareOptionsMenu(menu);
-        popupMenu.show();
-    }
-
-
     void startApplicationDetailsActivity(ComponentName componentName) {
         String packageName = componentName.getPackageName();
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -2766,7 +2755,7 @@ public final class Launcher extends Activity
         // Find the app market activity by resolving an intent.
         // (If multiple app markets are installed, it will return the ResolverActivity.)
         ComponentName activityName = intent.resolveActivity(getPackageManager());
-        if (activityName != null && ViewConfiguration.get(this).hasPermanentMenuKey()) {
+        if (activityName != null) {
             int coi = getCurrentOrientationIndexForGlobalIcons();
             mAppMarketIntent = intent;
             sAppMarketIcon[coi] = updateTextButtonWithIconFromExternalActivity(
@@ -2782,16 +2771,6 @@ public final class Launcher extends Activity
 
     private void updateAppMarketIcon(Drawable.ConstantState d) {
         updateTextButtonWithDrawable(R.id.market_button, d);
-    }
-
-    private void updateOverflowMenuButton() {
-        View overflowMenuButton = findViewById(R.id.overflow_menu_button);
-        if (ViewConfiguration.get(this).hasPermanentMenuKey()) {
-            overflowMenuButton.setVisibility(View.GONE);
-            overflowMenuButton.setEnabled(false);
-        } else {
-            overflowMenuButton.setVisibility(View.VISIBLE);
-        }
     }
 
     /**
@@ -3068,9 +3047,6 @@ public final class Launcher extends Activity
         // Update the market app icon as necessary (the other icons will be managed in response to
         // package changes in bindSearchablesChanged()
         updateAppMarketIcon();
-
-        // Hide overflow menu on devices with a hardkey
-        updateOverflowMenuButton();
 
         mWorkspace.post(mBuildLayersRunnable);
     }
