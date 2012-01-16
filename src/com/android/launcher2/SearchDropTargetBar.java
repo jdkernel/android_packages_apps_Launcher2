@@ -159,7 +159,7 @@ public class SearchDropTargetBar extends FrameLayout implements DragController.D
             mQSBSearchBar.setVisibility(View.VISIBLE);
             mQSBSearchBar.setAlpha(1f);
         }
-        mIsSearchBarHidden = true;
+        mIsSearchBarHidden = false;
     }
     public void hideSearchBar(boolean animated) {
         cancelAnimations();
